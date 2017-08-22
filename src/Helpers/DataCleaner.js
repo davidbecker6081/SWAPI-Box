@@ -25,6 +25,7 @@ class DataCleaner {
     const fetchVehicleData = fetch(this.vehicleURL)
     .then(data => data.json())
 
+
     return new Promise((resolve, reject) => {
       Promise.all([fetchPeopleData, fetchPlanetData, fetchVehicleData])
       .then((fetchedData) => {

@@ -8,7 +8,10 @@ class App extends Component {
     super();
     this.dataCleaner = new DataCleaner
     this.state = {
-      data: this.grabStarWarsData()
+      data: this.grabStarWarsData(),
+      peopleArray: [],
+      planetsArray: [],
+      vehicleArray: []
     }
     this.grabStarWarsData = this.grabStarWarsData.bind(this)
   }
@@ -16,11 +19,11 @@ class App extends Component {
 //onClick of button, we pass the text as the api we're trying to call and put it into the url
 
 grabStarWarsData() {
-  // let newDataObj = new DataCleaner
   this.dataCleaner.apiCall()
   .then(() => {
     this.setState({
-      data: this.dataCleaner,
+      data: this.dataCleaner
+
     })
   })
   .catch((e) => {
@@ -29,9 +32,78 @@ grabStarWarsData() {
 }
 
 showPeople() {
-  // this.dataCleaner.updatePeopleData()
+  const { results } = this.state.data.peopleData
+  let homeworldPromises = this.state.data.peopleData.results.map((person) =>
+    fetch(person.homeworld)
+        .then(planet => planet.json())
+    )
+  let updatedArrayOfPeople = Promise.all(homeworldPromises)
+    .then(array => array.map((planet, i) => {
+      return Object.assign({planet: planet.name, population: planet.population}, this.state.data.peopleData.results[i])
+    })
+  ).then(result => this.getSpecies(result))
+}
+
+getSpecies(result) {
+  let speciesList = result.map((person) => person.species[0])
+
+  let speciesPromises = speciesList.map((species) =>
+    fetch(species)
+      .then(data => data.json())
+    )
+
+  let speciesArray = Promise.all(speciesPromises)
+    .then(arrayOfSpecies => arrayOfSpecies.map((species, i) => {
+      return Object.assign({}, result[i], {species: species.name})
+    }))
+    .then(result2 => this.setState({
+      peopleArray: result2
+    }))
+}
+
+showPlanets() {
+  const resArray = []
+  const { results } = this.state.data.planetData
+  const residentsArray = results.map((planet, i) => {
+    const linkArray = planet.residents.map((link) => {
+      return fetch(link)
+                  .then(data => data.json())
+
+    })
+    return Promise.all(linkArray)
+    .then(thing => {
+      return Object.assign(planet, {residents: thing.map((person) => person.name)})
+    }).then(result => result)
+  })
+
+  Promise.all(residentsArray)
+  .then(response => this.setState({
+    planetsArray: response
+  }))
+}
+
+
+
+  // fetchResidents(data) {
+  //   const specificResidentsData = data.map( (residents, i) => {
+  //     const newArray = [];
+  //
+  //     const specificResidents = residents.residents.map((link, i) => {
+  //       return fetch(link)
+  //       .then(res => res.json())
+  //     })
+  //     return Promise.all(specificResidents).then( people => {
+  //       people.map((person, i) => {
+  //         newArray.push(person.name)
+  //         Object.assign(residents, {Residents: newArray})
+  //       })
+  //     })
+  //   })
+  // }
+
+showVehicles() {
   this.setState({
-    peopleArray: this.state.data.peopleData.results
+    vehicleArray: this.state.data.vehicleData.results
   })
 }
 
@@ -39,10 +111,12 @@ showPeople() {
     return (
       <div className="App">
         Hey There Hot Stuff
-        <button>Click ME</button>
-        <button onClick={this.showPeople.bind(this)}>People</button>
-
-          <CardContainer people={ this.state.peopleArray}/>
+        <button onClick={ this.showPeople.bind(this) }>People</button>
+        <button onClick={ this.showPlanets.bind(this) }>Planets</button>
+        <button onClick={ this.showVehicles.bind(this) }>Vehicles</button>
+        <CardContainer info={ this.state.peopleArray } />
+        <CardContainer info={ this.state.planetsArray } />
+        <CardContainer info={ this.state.vehicleArray } />
       </div>
     );
   }

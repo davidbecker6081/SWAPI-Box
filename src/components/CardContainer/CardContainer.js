@@ -2,19 +2,18 @@ import React from 'react';
 import './CardContainer.css';
 import Card from '../Card/Card'
 
-const CardContainer = ({ people }) => {
-  if(people) {
-    const characters = people.map((person, i) => <Card key={i}name={person.name} age={person.birth_year} gender={person.gender} height={person.height}/>)
+const CardContainer = ({ info }) => {
+    
+    const items = info.map((item, i) => {
+        return <Card key={i} item={item}/>
+    })
+    
+    
     return(
       <div>
-        {characters}
+        { items } 
       </div>
     )
-  }
-  return(
-    <div>
-    </div>
-  )
 }
 
 export default CardContainer;
