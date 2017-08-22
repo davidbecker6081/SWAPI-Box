@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import DataCleaner from './Helpers/DataCleaner'
+import CardContainer from './components/CardContainer/CardContainer'
 
 class App extends Component {
   constructor() {
@@ -30,7 +31,7 @@ grabStarWarsData() {
 showPeople() {
   // this.dataCleaner.updatePeopleData()
   this.setState({
-    peopleArray: this.state.data.peopleData
+    peopleArray: this.state.data.peopleData.results
   })
 }
 
@@ -40,6 +41,8 @@ showPeople() {
         Hey There Hot Stuff
         <button>Click ME</button>
         <button onClick={this.showPeople.bind(this)}>People</button>
+
+          <CardContainer people={ this.state.peopleArray}/>
       </div>
     );
   }
