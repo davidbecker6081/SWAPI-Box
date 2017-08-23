@@ -4,10 +4,10 @@ body {
   background: #000;
 }
 
-.header {
+/*.header {
   background-color: yellow;
   display: flex;
   flex-direction: column;
   min-height: 20vh;
-  min-width: 100vw;
-}
+  min-width: 100vw;*/
+/*}*/

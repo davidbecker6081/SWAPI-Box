@@ -6,10 +6,10 @@ const Button = ({ clickEvent, btnText, cardObj, givenClass, favLength }) => {
 
   if (cardObj) {
     buttonClass = cardObj.hasBeenSelected ? 'selected-favorite default-fav-btn' : 'default-fav-btn'
-  }
+    }
 
   return (
-    <button onClick={() => clickEvent()} className={buttonClass}>
+    <button onClick={() => clickEvent(cardObj)} className={buttonClass}>
       {btnText}
       {favLength}
     </button>
