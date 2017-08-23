@@ -1,0 +1,38 @@
+.scroll-text {
+  display: block;
+  margin-bottom: 50px;
+  animation-name: scroll;
+  animation-duration: 10s;
+  position: relative;
+  perspective: 400px;
+  transform-origin: 50% 100%;
+  animation: scroll 30s linear;
+  color: #feda4a;
+  font-family: 'Pathway Gothic One', sans-serif;
+  text-align: center;
+  font-size: 60px;
+}
+
+
+.fade {
+  position: relative;
+  width: 100%;
+  min-height: 60vh;
+  top: -25px;
+  background-image: linear-gradient(0deg, transparent, black 75%);
+  z-index: 1;
+}
+
+
+
+@keyframes scroll {
+  0%  {
+    top: 2000px;
+    transform: rotateX(20deg)  translateZ(0);
+  }
+
+  100% {
+    top: -6000px;
+     transform: rotateX(25deg) translateZ(-2500px);
+  }
+}

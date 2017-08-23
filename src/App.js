@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import './App.css';
 import DataCleaner from './Helpers/DataCleaner'
 import CardContainer from './components/CardContainer/CardContainer'
+import Scroll from './components/Scroll/Scroll'
 
 class App extends Component {
   constructor() {
     super();
     this.dataCleaner = new DataCleaner
     this.state = {
-      data: this.grabStarWarsData(),
+      data: undefined,
       peopleArray: [],
       planetsArray: [],
-      vehicleArray: []
+      vehicleArray: [],
+      scrollData: []
     }
     this.grabStarWarsData = this.grabStarWarsData.bind(this)
   }
@@ -22,13 +24,17 @@ grabStarWarsData() {
   this.dataCleaner.apiCall()
   .then(() => {
     this.setState({
-      data: this.dataCleaner
-
+      data: this.dataCleaner,
+      scrollData: this.dataCleaner.scrollData.results
     })
   })
   .catch((e) => {
     console.log('API ERROR: ', e)
   })
+}
+
+componentDidMount() {
+  this.grabStarWarsData()
 }
 
 showPeople() {
@@ -82,25 +88,6 @@ showPlanets() {
   }))
 }
 
-
-
-  // fetchResidents(data) {
-  //   const specificResidentsData = data.map( (residents, i) => {
-  //     const newArray = [];
-  //
-  //     const specificResidents = residents.residents.map((link, i) => {
-  //       return fetch(link)
-  //       .then(res => res.json())
-  //     })
-  //     return Promise.all(specificResidents).then( people => {
-  //       people.map((person, i) => {
-  //         newArray.push(person.name)
-  //         Object.assign(residents, {Residents: newArray})
-  //       })
-  //     })
-  //   })
-  // }
-
 showVehicles() {
   this.setState({
     vehicleArray: this.state.data.vehicleData.results
@@ -117,6 +104,7 @@ showVehicles() {
         <CardContainer info={ this.state.peopleArray } />
         <CardContainer info={ this.state.planetsArray } />
         <CardContainer info={ this.state.vehicleArray } />
+        <Scroll scrollArray={this.state.scrollData} />
       </div>
     );
   }
