@@ -2,10 +2,8 @@ import React from 'react';
 import './Card.css';
 import Button from '../Button/Button'
 
-const Card = ({ item, addToFavorites, removeFromFavorites }) => {
+const Card = ({ item, addRemoveFavs}) => {
 
-let favoriteClickEvent = item.hasBeenSelected ? () => removeFromFavorites(item)
-                                         : () => addToFavorites(item)
 let buttonText = item.hasBeenSelected ? 'Remove' : 'Add'
 let cardClass = item.hasBeenSelected ? 'selected-card default-card' : 'default-card'
 
@@ -56,7 +54,7 @@ let cardClass = item.hasBeenSelected ? 'selected-card default-card' : 'default-c
   return(
     <div className="card-area">
       {returnCard()}
-      <Button className="fav-btn"cardObj={item} clickEvent={favoriteClickEvent} btnText={buttonText} />
+      <Button cardObj={item} clickEvent={addRemoveFavs} btnText={buttonText} />
     </div>
   )
 }

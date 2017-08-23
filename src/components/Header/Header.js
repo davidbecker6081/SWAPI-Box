@@ -6,16 +6,18 @@ const Header = ({ showPeople, showPlanets, showVehicles, showFavorites, favLengt
 
   return (
     <div className='header'>
-      <h1>SWAPI-BOX</h1>
-      <div className='nav-btns'>
+      <div className='nav-btns btns-top'>
         <Button givenClass={'people-btn'}
           clickEvent={ showPeople } />
         <Button givenClass={'planet-btn'}
           clickEvent={ showPlanets } />
+      </div>
+      <h1>SWAPI-BOX</h1>
+      <div className='nav-btns btns-bottom'>
         <Button givenClass={'vehicle-btn'}
-          clickEvent={ showVehicles } />
+        clickEvent={ showVehicles } />
         <Button givenClass={'favorite-btn'}
-          clickEvent={ showFavorites } favLength={ favLength }/>
+        clickEvent={ showFavorites } favLength={ favLength }/>
       </div>
     </div>
   )
