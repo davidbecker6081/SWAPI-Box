@@ -1,0 +1,32 @@
+.card-area {
+  border: 1px solid yellow;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 5px 10px;
+}
+
+.default-card {
+  color: yellow;
+  display: flex;
+  flex-direction: column;
+  max-height: 300px;
+  min-height: 300px;
+  min-width: 200px;
+  max-width: 200px;
+  padding: 10px 5px;
+  text-align: center;
+}
+
+.fav-btn {
+  position: relative;
+  bottom: 10px;
+}
+
+p {
+  margin: 0;
+}
+.card-info {
+  margin-bottom: 5px;
+}

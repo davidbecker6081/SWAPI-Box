@@ -9,7 +9,7 @@ const CardContainer = ({ info, addToFavorites, removeFromFavorites }) => {
     })
 
     return(
-      <div>
+      <div className="container">
         { items }
       </div>
     )

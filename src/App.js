@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import DataCleaner from './Helpers/DataCleaner'
-import CardContainer from './components/CardContainer/CardContainer'
-import Scroll from './components/Scroll/Scroll'
-import Button from './components/Button/Button'
+import DataCleaner from './Helpers/DataCleaner';
+import CardContainer from './components/CardContainer/CardContainer';
+import Scroll from './components/Scroll/Scroll';
+// import Button from './components/Button/Button';
+import Header from './components/Header/Header';
 
 class App extends Component {
   constructor() {
@@ -151,12 +152,17 @@ showVehicles() {
   render() {
     return (
       <div className="App">
-        Hey There Hot Stuff
-
-        <Button clickEvent={this.showPeople.bind(this)} btnText={'People'} />
-        <Button clickEvent={this.showPlanets.bind(this)} btnText={'Planets'} />
-        <Button clickEvent={this.showVehicles.bind(this)} btnText={'Vehicles'} />
-        <Button clickEvent={this.showFavorites.bind(this)} btnText={'Favorites'} />
+        <Header showPeople={ this.showPeople.bind(this) } showPlanets={ this.showPlanets.bind(this) }
+        showVehicles={ this.showVehicles.bind(this) }
+        showFavorites={this.showFavorites.bind(this) }
+        />
+        {/*<div className='header'>
+        SWAPI-BOX
+          <Button clickEvent={this.showPeople.bind(this)} btnText={'People'} />
+          <Button clickEvent={this.showPlanets.bind(this)} btnText={'Planets'} />
+          <Button clickEvent={this.showVehicles.bind(this)} btnText={'Vehicles'} />
+          <Button clickEvent={this.showFavorites.bind(this)} btnText={'Favorites'} />
+        </div>*/}
 
         {this.state.display === 'people' && <CardContainer info={ this.state.peopleArray } addToFavorites={this.addToFavorites.bind(this)} removeFromFavorites={this.removeFromFavorites.bind(this)} />
         }

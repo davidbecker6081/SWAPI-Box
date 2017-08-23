@@ -1,0 +1,79 @@
+.header {
+  align-items: center;
+  background-color: blue;
+  color: yellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 30vh;
+  min-width: 100vw;
+  text-align: center;
+  z-index: 100;
+}
+
+.nav-btns {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  max-width: 80vw;
+}
+
+.nav-btn {
+  border: 2px solid yellow;
+  background-color: black;
+  border-radius: 25px;
+  height: 45px;
+  margin: 0 10px;
+  transition-duration: 2s;
+  width: 100px;
+}
+
+.nav-btn:hover {
+  cursor: pointer;
+  background-color: yellow;
+  transition-duration: 2s;
+}
+
+.people-btn {
+  background-image: url('./assets/darth-vader-yellow.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.people-btn:hover {
+  background-image: url('./assets/darth-vader.svg');
+}
+
+.planet-btn {
+  background-image: url('./assets/death-star-yellow.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.planet-btn:hover {
+  background-image: url('./assets/death-star.svg');
+}
+
+.vehicle-btn {
+  background-image: url('./assets/tie-fighter-yellow.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.vehicle-btn:hover {
+  background-image: url('./assets/tie-fighter.svg');
+}
+
+.favorite-btn {
+  background-image: url('./assets/star-yellow.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.favorite-btn:hover {
+  background-image: url('./assets/star.svg');
+}
