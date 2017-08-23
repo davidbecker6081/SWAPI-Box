@@ -1,8 +1,8 @@
 import React from 'react';
 import './Button.css';
 
-const Button = ({ clickEvent, btnText, cardObj }) => {
-  let buttonClass = 'display-btn'
+const Button = ({ clickEvent, btnText, cardObj, givenClass, favLength }) => {
+  let buttonClass = `${givenClass} nav-btn`
 
   if (cardObj) {
     buttonClass = cardObj.hasBeenSelected ? 'selected-favorite default-fav-btn' : 'default-fav-btn'
@@ -11,6 +11,7 @@ const Button = ({ clickEvent, btnText, cardObj }) => {
   return (
     <button onClick={() => clickEvent()} className={buttonClass}>
       {btnText}
+      {favLength}
     </button>
   )
 }

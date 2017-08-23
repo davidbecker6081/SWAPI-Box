@@ -1,20 +1,21 @@
 import React from 'react';
 import './Header.css'
+import Button from '../Button/Button'
 
-const Header = ({ showPeople, showPlanets, showVehicles, showFavorites, btnText, cardObj }) => {
+const Header = ({ showPeople, showPlanets, showVehicles, showFavorites, favLength }) => {
 
   return (
     <div className='header'>
       <h1>SWAPI-BOX</h1>
       <div className='nav-btns'>
-        <button className='nav-btn people-btn'
-          onClick={ showPeople }></button>
-        <button className='nav-btn planet-btn'
-          onClick={ showPlanets }></button>
-        <button className='nav-btn vehicle-btn'
-          onClick={ showVehicles }></button>
-        <button className='nav-btn favorite-btn'
-          onClick={ showFavorites }></button>
+        <Button givenClass={'people-btn'}
+          clickEvent={ showPeople } />
+        <Button givenClass={'planet-btn'}
+          clickEvent={ showPlanets } />
+        <Button givenClass={'vehicle-btn'}
+          clickEvent={ showVehicles } />
+        <Button givenClass={'favorite-btn'}
+          clickEvent={ showFavorites } favLength={ favLength }/>
       </div>
     </div>
   )
