@@ -4,6 +4,37 @@ body {
   background: #000;
 }
 
+.loading {
+  align-items: center;
+  animation-name: fade-in;
+  animation-duration: 1s;
+  color: yellow;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.background-video {
+  border-radius: 40px;
+  position: absolute;
+  opacity: .7;
+  z-index: 5;
+}
+
+.load-text{
+
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 /*.header {
   background-color: yellow;
   display: flex;
