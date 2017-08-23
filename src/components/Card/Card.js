@@ -1,13 +1,18 @@
 import React from 'react';
 import './Card.css';
+import Button from '../Button/Button'
 
+const Card = ({ item, addToFavorites, removeFromFavorites }) => {
 
-const Card = ({ item }) => {
-  
+let favoriteClickEvent = item.hasBeenSelected ? () => removeFromFavorites(item)
+                                         : () => addToFavorites(item)
+let buttonText = item.hasBeenSelected ? 'Remove' : 'Add'
+let cardClass = item.hasBeenSelected ? 'selected-card default-card' : 'default-card'
+
   const returnCard = () => {
     if (item.gender) {
       return (
-        <div>
+        <div className={cardClass}>
           <h3>Name : {item.name}</h3>
           <p>Species: {item.species}</p>
           <p>Height: {item.height}</p>
@@ -18,7 +23,7 @@ const Card = ({ item }) => {
     }
     else if(item.gravity) {
       return (
-        <div>
+        <div className={cardClass}>
           <h3>Name: {item.name}</h3>
           <p>Terrain: {item.terrain}</p>
           <p>Population: {item.population}</p>
@@ -29,7 +34,7 @@ const Card = ({ item }) => {
     }
     else if (item.crew){
       return (
-        <div>
+        <div className={cardClass}>
           <h3>Name: {item.name}</h3>
           <p>Model: {item.model}</p>
           <p>Class: {item.vehicle_class}</p>
@@ -38,20 +43,14 @@ const Card = ({ item }) => {
         </div>
       )
     }
-    
+
   }
   return(
     <div>
       {returnCard()}
-      <button>Favs</button>
+      <Button cardObj={item} clickEvent={favoriteClickEvent} btnText={buttonText} />
     </div>
   )
 }
 
 export default Card;
-
-
-
-
-
-

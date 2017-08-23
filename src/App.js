@@ -3,6 +3,7 @@ import './App.css';
 import DataCleaner from './Helpers/DataCleaner'
 import CardContainer from './components/CardContainer/CardContainer'
 import Scroll from './components/Scroll/Scroll'
+import Button from './components/Button/Button'
 
 class App extends Component {
   constructor() {
@@ -13,12 +14,12 @@ class App extends Component {
       peopleArray: [],
       planetsArray: [],
       vehicleArray: [],
-      scrollData: []
+      scrollData: [],
+      favorites: [],
+      display: 'welcome'
     }
     this.grabStarWarsData = this.grabStarWarsData.bind(this)
   }
-
-//onClick of button, we pass the text as the api we're trying to call and put it into the url
 
 grabStarWarsData() {
   this.dataCleaner.apiCall()
@@ -37,17 +38,53 @@ componentDidMount() {
   this.grabStarWarsData()
 }
 
-showPeople() {
-  const { results } = this.state.data.peopleData
-  let homeworldPromises = this.state.data.peopleData.results.map((person) =>
-    fetch(person.homeworld)
-        .then(planet => planet.json())
-    )
-  let updatedArrayOfPeople = Promise.all(homeworldPromises)
-    .then(array => array.map((planet, i) => {
-      return Object.assign({planet: planet.name, population: planet.population}, this.state.data.peopleData.results[i])
+addToFavorites(card) {
+  console.log(card);
+  let isInFavArray = this.state.favorites.filter((favCard) => favCard.name === card.name)
+
+  if (isInFavArray.length === 0) {
+    card.hasBeenSelected = true
+    const newFavArray = [...this.state.favorites, card]
+
+    this.setState({
+      favorites: newFavArray
     })
-  ).then(result => this.getSpecies(result))
+  }
+}
+
+removeFromFavorites(card) {
+  console.log(card);
+  card.hasBeenSelected = false
+  const newFavArray = this.state.favorites.filter((favCard) => favCard.name !== card.name)
+
+  this.setState({
+    favorites: newFavArray
+  })
+}
+
+showFavorites() {
+  this.setState({
+    display: 'favorites'
+  })
+}
+
+showPeople() {
+  if (this.state.peopleArray.length === 0) {
+    const { results } = this.state.data.peopleData
+    let homeworldPromises = this.state.data.peopleData.results.map((person) =>
+      fetch(person.homeworld)
+          .then(planet => planet.json())
+      )
+    let updatedArrayOfPeople = Promise.all(homeworldPromises)
+      .then(array => array.map((planet, i) => {
+        return Object.assign({planet: planet.name, population: planet.population}, this.state.data.peopleData.results[i])
+      })
+    ).then(result => this.getSpecies(result))
+  } else {
+    this.setState({
+      display: 'people'
+    })
+  }
 }
 
 getSpecies(result) {
@@ -60,50 +97,81 @@ getSpecies(result) {
 
   let speciesArray = Promise.all(speciesPromises)
     .then(arrayOfSpecies => arrayOfSpecies.map((species, i) => {
-      return Object.assign({}, result[i], {species: species.name})
+      return Object.assign({}, result[i], {species: species.name}, {hasBeenSelected: false})
     }))
     .then(result2 => this.setState({
-      peopleArray: result2
+      peopleArray: result2,
+      display: 'people'
     }))
 }
 
 showPlanets() {
-  const resArray = []
-  const { results } = this.state.data.planetData
-  const residentsArray = results.map((planet, i) => {
-    const linkArray = planet.residents.map((link) => {
-      return fetch(link)
-                  .then(data => data.json())
+  if (this.state.planetsArray.length === 0) {
+    let resArray = []
+    const { results } = this.state.data.planetData
+    let residentsArray = results.map((planet, i) => {
+      let linkArray = planet.residents.map((link) => {
+        return fetch(link)
+                    .then(data => data.json())
 
+      })
+      return Promise.all(linkArray)
+      .then(thing => {
+        return Object.assign(planet, {residents: thing.map((person) => person.name)}, {hasBeenSelected: false})
+      }).then(result => result)
     })
-    return Promise.all(linkArray)
-    .then(thing => {
-      return Object.assign(planet, {residents: thing.map((person) => person.name)})
-    }).then(result => result)
-  })
 
-  Promise.all(residentsArray)
-  .then(response => this.setState({
-    planetsArray: response
-  }))
+    Promise.all(residentsArray)
+    .then(response => this.setState({
+      planetsArray: response,
+      display: 'planets'
+    }))
+  } else {
+    this.setState({
+      display: 'planets'
+    })
+  }
 }
 
 showVehicles() {
-  this.setState({
-    vehicleArray: this.state.data.vehicleData.results
-  })
+  if (this.state.vehicleArray.length === 0) {
+    const { results } = this.state.data.vehicleData
+    Object.keys(results).map((planet, i) => results[i].hasBeenSelected = false)
+    this.setState({
+      vehicleArray: results,
+      display: 'vehicles'
+    })
+  } else {
+    this.setState({
+      display: 'vehicles'
+    })
+  }
 }
 
   render() {
     return (
       <div className="App">
         Hey There Hot Stuff
-        <button onClick={ this.showPeople.bind(this) }>People</button>
-        <button onClick={ this.showPlanets.bind(this) }>Planets</button>
-        <button onClick={ this.showVehicles.bind(this) }>Vehicles</button>
-        <CardContainer info={ this.state.peopleArray } />
-        <CardContainer info={ this.state.planetsArray } />
-        <CardContainer info={ this.state.vehicleArray } />
+
+        <Button clickEvent={this.showPeople.bind(this)} btnText={'People'} />
+        <Button clickEvent={this.showPlanets.bind(this)} btnText={'Planets'} />
+        <Button clickEvent={this.showVehicles.bind(this)} btnText={'Vehicles'} />
+        <Button clickEvent={this.showFavorites.bind(this)} btnText={'Favorites'} />
+
+        {this.state.display === 'people' && <CardContainer info={ this.state.peopleArray } addToFavorites={this.addToFavorites.bind(this)} removeFromFavorites={this.removeFromFavorites.bind(this)} />
+        }
+
+        {this.state.display === 'planets' && <CardContainer info={ this.state.planetsArray } addToFavorites={this.addToFavorites.bind(this)} removeFromFavorites={this.removeFromFavorites.bind(this)} />
+        }
+
+        {this.state.display === 'vehicles' && <CardContainer info={ this.state.vehicleArray } addToFavorites={this.addToFavorites.bind(this)} removeFromFavorites={this.removeFromFavorites.bind(this)} />
+        }
+
+        {this.state.display === 'favorites' &&
+          <CardContainer info={ this.state.favorites } addToFavorites={this.addToFavorites.bind(this)} removeFromFavorites={this.removeFromFavorites.bind(this)} />
+        }
+
+
         <Scroll scrollArray={this.state.scrollData} />
       </div>
     );
