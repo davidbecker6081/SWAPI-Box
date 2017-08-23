@@ -3,6 +3,7 @@ import './App.css';
 import DataCleaner from './Helpers/DataCleaner'
 import CardContainer from './components/CardContainer/CardContainer'
 import Scroll from './components/Scroll/Scroll'
+import DisplayButton from './components/DisplayButton/DisplayButton'
 
 class App extends Component {
   constructor() {
@@ -13,7 +14,8 @@ class App extends Component {
       peopleArray: [],
       planetsArray: [],
       vehicleArray: [],
-      scrollData: []
+      scrollData: [],
+      favorites: []
     }
     this.grabStarWarsData = this.grabStarWarsData.bind(this)
   }
@@ -35,6 +37,18 @@ grabStarWarsData() {
 
 componentDidMount() {
   this.grabStarWarsData()
+}
+
+addToFavorites() {
+
+}
+
+removeFromFavorites() {
+
+}
+
+showFavorites() {
+
 }
 
 showPeople() {
@@ -60,37 +74,48 @@ getSpecies(result) {
 
   let speciesArray = Promise.all(speciesPromises)
     .then(arrayOfSpecies => arrayOfSpecies.map((species, i) => {
-      return Object.assign({}, result[i], {species: species.name})
+      return Object.assign({}, result[i], {species: species.name}, {hasBeenSelected: false})
     }))
     .then(result2 => this.setState({
-      peopleArray: result2
+      peopleArray: result2,
+      planetsArray: [],
+      vehicleArray: [],
+      scrollData: []
     }))
 }
 
 showPlanets() {
-  const resArray = []
+  let resArray = []
   const { results } = this.state.data.planetData
-  const residentsArray = results.map((planet, i) => {
-    const linkArray = planet.residents.map((link) => {
+  let residentsArray = results.map((planet, i) => {
+    let linkArray = planet.residents.map((link) => {
       return fetch(link)
                   .then(data => data.json())
 
     })
     return Promise.all(linkArray)
     .then(thing => {
-      return Object.assign(planet, {residents: thing.map((person) => person.name)})
+      return Object.assign(planet, {residents: thing.map((person) => person.name)}, {hasBeenSelected: false})
     }).then(result => result)
   })
 
   Promise.all(residentsArray)
   .then(response => this.setState({
-    planetsArray: response
+    planetsArray: response,
+    peopleArray: [],
+    vehicleArray: [],
+    scrollData: []
   }))
 }
 
 showVehicles() {
+  const { results } = this.state.data.vehicleData
+  Object.keys(results).map((planet, i) => results[i].hasBeenSelected = false)
   this.setState({
-    vehicleArray: this.state.data.vehicleData.results
+    vehicleArray: results,
+    peopleArray: [],
+    planetsArray: [],
+    scrollData: []
   })
 }
 
@@ -98,12 +123,16 @@ showVehicles() {
     return (
       <div className="App">
         Hey There Hot Stuff
-        <button onClick={ this.showPeople.bind(this) }>People</button>
-        <button onClick={ this.showPlanets.bind(this) }>Planets</button>
-        <button onClick={ this.showVehicles.bind(this) }>Vehicles</button>
-        <CardContainer info={ this.state.peopleArray } />
-        <CardContainer info={ this.state.planetsArray } />
-        <CardContainer info={ this.state.vehicleArray } />
+
+        <DisplayButton clickEvent={this.showPeople.bind(this)} btnText={'People'}/>
+        <DisplayButton clickEvent={this.showPlanets.bind(this)} btnText={'Planets'}/>
+        <DisplayButton clickEvent={this.showVehicles.bind(this)} btnText={'Vehicles'}/>
+        <DisplayButton clickEvent={this.showFavorites.bind(this)} btnText={'Favorites'}/>
+
+        <CardContainer info={ this.state.peopleArray } addToFavorites={this.addToFavorites.bind(this)} removeFromFavorites={this.removeFromFavorites.bind(this)} />
+        <CardContainer info={ this.state.planetsArray } addToFavorites={this.addToFavorites.bind(this)} removeFromFavorites={this.removeFromFavorites.bind(this)} />
+        <CardContainer info={ this.state.vehicleArray } addToFavorites={this.addToFavorites.bind(this)} removeFromFavorites={this.removeFromFavorites.bind(this)} />
+
         <Scroll scrollArray={this.state.scrollData} />
       </div>
     );

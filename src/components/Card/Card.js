@@ -1,9 +1,15 @@
 import React from 'react';
 import './Card.css';
+import FavButton from '../FavButton/FavButton'
 
+const Card = ({ item, addToFavorites, removeFromFavorites, hasBeenSelected }) => {
 
-const Card = ({ item }) => {
-  
+console.log(hasBeenSelected)
+let favoriteClickEvent = hasBeenSelected ? () => removeFromFavorites()
+                                         : () => addToFavorites()
+
+let buttonText = hasBeenSelected ? 'Remove' : 'Add'
+
   const returnCard = () => {
     if (item.gender) {
       return (
@@ -38,20 +44,14 @@ const Card = ({ item }) => {
         </div>
       )
     }
-    
+
   }
   return(
     <div>
       {returnCard()}
-      <button>Favs</button>
+      <FavButton cardObj={item} clickEvent={favoriteClickEvent} btnText={buttonText} />
     </div>
   )
 }
 
 export default Card;
-
-
-
-
-
-
