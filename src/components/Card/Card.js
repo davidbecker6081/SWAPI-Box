@@ -2,13 +2,12 @@ import React from 'react';
 import './Card.css';
 import Button from '../Button/Button'
 
-const Card = ({ item, addToFavorites, removeFromFavorites, hasBeenSelected }) => {
+const Card = ({ item, addToFavorites, removeFromFavorites }) => {
 
-let favoriteClickEvent = hasBeenSelected ? () => removeFromFavorites()
-                                         : () => addToFavorites()
-
-let buttonText = hasBeenSelected ? 'Remove' : 'Add'
-let cardClass = hasBeenSelected ? 'selected-card default-card' : 'default-card'
+let favoriteClickEvent = item.hasBeenSelected ? () => removeFromFavorites(item)
+                                         : () => addToFavorites(item)
+let buttonText = item.hasBeenSelected ? 'Remove' : 'Add'
+let cardClass = item.hasBeenSelected ? 'selected-card default-card' : 'default-card'
 
   const returnCard = () => {
     if (item.gender) {

@@ -39,16 +39,32 @@ componentDidMount() {
   this.grabStarWarsData()
 }
 
-addToFavorites() {
+addToFavorites(card) {
+  console.log(card);
+  let isInFavArray = this.state.favorites.filter((favCard) => favCard.name === card.name)
 
+  if (isInFavArray.length === 0) {
+    card.hasBeenSelected = true
+    const newFavArray = [...this.state.favorites, card]
+
+    this.setState({
+      favorites: newFavArray
+    })
+  }
 }
 
-removeFromFavorites() {
+removeFromFavorites(card) {
+  console.log(card);
+  card.hasBeenSelected = false
+  const newFavArray = this.state.favorites.filter((favCard) => favCard.name !== card.name)
 
+  this.setState({
+    favorites: newFavArray
+  })
 }
 
 showFavorites() {
-
+  
 }
 
 showPeople() {
