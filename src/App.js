@@ -3,7 +3,7 @@ import './App.css';
 import DataCleaner from './Helpers/DataCleaner'
 import CardContainer from './components/CardContainer/CardContainer'
 import Scroll from './components/Scroll/Scroll'
-import DisplayButton from './components/DisplayButton/DisplayButton'
+import Button from './components/Button/Button'
 
 class App extends Component {
   constructor() {
@@ -124,10 +124,10 @@ showVehicles() {
       <div className="App">
         Hey There Hot Stuff
 
-        <DisplayButton clickEvent={this.showPeople.bind(this)} btnText={'People'}/>
-        <DisplayButton clickEvent={this.showPlanets.bind(this)} btnText={'Planets'}/>
-        <DisplayButton clickEvent={this.showVehicles.bind(this)} btnText={'Vehicles'}/>
-        <DisplayButton clickEvent={this.showFavorites.bind(this)} btnText={'Favorites'}/>
+        <Button clickEvent={this.showPeople.bind(this)} btnText={'People'} />
+        <Button clickEvent={this.showPlanets.bind(this)} btnText={'Planets'} />
+        <Button clickEvent={this.showVehicles.bind(this)} btnText={'Vehicles'} />
+        <Button clickEvent={this.showFavorites.bind(this)} btnText={'Favorites'} />
 
         <CardContainer info={ this.state.peopleArray } addToFavorites={this.addToFavorites.bind(this)} removeFromFavorites={this.removeFromFavorites.bind(this)} />
         <CardContainer info={ this.state.planetsArray } addToFavorites={this.addToFavorites.bind(this)} removeFromFavorites={this.removeFromFavorites.bind(this)} />

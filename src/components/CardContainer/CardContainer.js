@@ -8,7 +8,6 @@ const CardContainer = ({ info, addToFavorites, removeFromFavorites }) => {
         return <Card key={i} item={item} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>
     })
 
-
     return(
       <div>
         { items }

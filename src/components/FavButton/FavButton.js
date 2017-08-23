@@ -1,10 +1,12 @@
 import React from 'react';
 import './FavButton.css';
 
-const FavButton = ({ item, clickEvent, btnText }) => {
+const FavButton = ({  }) => {
 
-  return(
-    <button onClick={() => clickEvent(item) }>
+
+
+  return (
+    <button className={buttonClass} onClick={() => clickEvent(item) }>
       {btnText}
     </button>
   )
