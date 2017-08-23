@@ -155,6 +155,7 @@ showVehicles() {
         <Header showPeople={ this.showPeople.bind(this) } showPlanets={ this.showPlanets.bind(this) }
         showVehicles={ this.showVehicles.bind(this) }
         showFavorites={this.showFavorites.bind(this) }
+        favLength={ this.state.favorites.length }
         />
         {/*<div className='header'>
         SWAPI-BOX
