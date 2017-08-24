@@ -64,7 +64,7 @@ describe('App', () => {
     fetchMock.get('https://swapi.co/api/vehicles/', {status: 200, body: mockVehicles })
     fetchMock.get('https://swapi.co/api/films/', {status: 200, body: mockFilms })
 
-    const wrapper = mount(<App grabStarWarsData={mockFn}/>)
+    const wrapper = mount(<App />)
 
     await wrapper.update()
 
@@ -76,6 +76,7 @@ describe('App', () => {
     expect(fetchMock._matchedCalls.length).toEqual(4)
   });
 
+
   it.skip('should fetch the people data when the people button is pushed', async () => {
     const div = document.createElement('div');
     const mockFn = jest.fn();
@@ -86,10 +87,30 @@ describe('App', () => {
     fetchMock.get('https://swapi.co/api/vehicles/', {status: 200, body: mockVehicles })
     fetchMock.get('https://swapi.co/api/films/', {status: 200, body: mockFilms })
 
-    const wrapper = mount(<App grabStarWarsData={mockFn}/>)
+    const wrapper = mount(<App />)
+
+    fetchMock.get('https://swapi.co/api/people/1/homeworld/', {status: 200, body: mockPerson1})
+    fetchMock.get('https://swapi.co/api/people/2/homeworld/', {status: 200, body: mockPerson2})
+    fetchMock.get('https://swapi.co/api/people/3/homeworld/', {status: 200, body: mockPerson3})
+    fetchMock.get('https://swapi.co/api/people/4/homeworld/', {status: 200, body: mockPerson4})
+    fetchMock.get('https://swapi.co/api/people/5/homeworld/', {status: 200, body: mockPerson5})
+    fetchMock.get('https://swapi.co/api/people/6/homeworld/', {status: 200, body: mockPerson6})
+    fetchMock.get('https://swapi.co/api/people/7/homeworld/', {status: 200, body: mockPerson7})
+    fetchMock.get('https://swapi.co/api/people/8/homeworld/', {status: 200, body: mockPerson8})
+    fetchMock.get('https://swapi.co/api/people/9/homeworld/', {status: 200, body: mockPerson9})
+    fetchMock.get('https://swapi.co/api/people/10/homeworld/', {status: 200, body: mockPerson10})
 
     wrapper.setState({
       data: mockData
+    }, () => {
+
+      // await resolveAfter2Seconds()
+      fetchMock.flush()
+      .then(() => { wrapper.instance().showPeople() } )
+      .then(() => {
+        expect(wrapper.state().peopleArray.length).toEqual(10)
+        expect(fetchMock.lastCall()).toEqual('booty')
+      })
     })
 
     fetchMock.get('https://swapi.co/api/people/1/homeworld', {status: 200, body: mockPerson1})
@@ -108,12 +129,7 @@ describe('App', () => {
     // setTimeout(() => {
     //   wrapper.instance().showPeople()
     // }, 2000)
-    fetchMock.flush()
-    .then(() => { wrapper.instance().showPeople() } )
-    .then(() => {
-      expect(wrapper.state().peopleArray.length).toEqual(10)
-    expect(fetchMock.lastCall()).toEqual('booty')
-  })
+
     // setTimeout(() => {
     //   expect(wrapper.state().peopleArray.length).toEqual(10)
     //   expect(fetchMock.lastCall()).toEqual('booty')
