@@ -37,7 +37,7 @@ class DataCleaner {
         this.scrollData = fetchedData[3]
         resolve()
       })
-      .catch((e) => {reject(e)})
+      .catch((e) => {console.log('fuck you')})
     })
   }
 }

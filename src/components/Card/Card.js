@@ -1,6 +1,5 @@
 import React from 'react';
 import './Card.css';
-import Button from '../Button/Button'
 import PeopleImage from '../Header/assets/people-background2.jpg'
 import PlanetImage from '../Header/assets/planet-background2.jpeg'
 import VehicleImage from '../Header/assets/vehicle-background2.jpg'

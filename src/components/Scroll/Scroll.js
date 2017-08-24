@@ -7,6 +7,8 @@ const Scroll = ({ scrollArray }) => {
   // const creeper = scrollArray.map((scrollObj, i) => <div className="title" key={i}><p className="crawl">{scrollObj.opening_crawl}</p></div>);
 
   // console.log('ep 4', scrollArray[0].opening_crawl)
+  console.log('scroll')
+  console.log(scrollArray)
 
   const creeper = <div className="title" key={0}>
   <p className="crawl">{scrollArray.opening_crawl}</p></div>
@@ -22,7 +24,7 @@ const Scroll = ({ scrollArray }) => {
 }
 
 Scroll.propTypes = {
-  scrollArray: PropTypes.object.isRequired
+  scrollArray: PropTypes.array
 }
 
 export default Scroll;
