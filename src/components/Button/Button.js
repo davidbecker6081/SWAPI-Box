@@ -1,5 +1,6 @@
 import React from 'react';
 import './Button.css';
+import PropTypes from 'prop-types';
 
 const Button = ({ clickEvent, btnText, cardObj, givenClass, favLength }) => {
   let buttonClass = `${givenClass} nav-btn`
@@ -9,11 +10,19 @@ const Button = ({ clickEvent, btnText, cardObj, givenClass, favLength }) => {
     }
 
   return (
-    <button onClick={() => clickEvent(cardObj)} className={buttonClass}>
+    <button onClick={() => clickEvent(cardObj)}   className={buttonClass}>
       {btnText}
       {favLength}
     </button>
   )
+}
+
+Button.propTypes = {
+  clickEvent: PropTypes.func,
+  btnText: PropTypes.string,
+  cardObj: PropTypes.object,
+  givenClass: PropTypes.string,
+  favLength: PropTypes.number
 }
 
 export default Button

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Card.css';
-import Button from '../Button/Button'
+import Button from '../Button/Button';
+import PropTypes from 'prop-types';
 
 const Card = ({ item, addRemoveFavs}) => {
 
@@ -57,6 +58,11 @@ let cardClass = item.hasBeenSelected ? 'selected-card default-card' : 'default-c
       <Button cardObj={item} clickEvent={addRemoveFavs} btnText={buttonText} />
     </div>
   )
+}
+
+Card.propTypes = {
+  item: PropTypes.object.isRequired,
+  addRemoveFavs: PropTypes.func.isRequired
 }
 
 export default Card;
