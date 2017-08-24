@@ -19,7 +19,7 @@ class App extends Component {
       vehicleArray: [],
       scrollData: [],
       favorites: [],
-      display: 'loading'
+      display: 'welcome'
     }
     this.grabStarWarsData = this.grabStarWarsData.bind(this)
   }
@@ -93,6 +93,8 @@ showPeople() {
     this.setState({
       display: 'people'
     })
+
+    console.log('people', this.state.peopleArray);
   }
 }
 
@@ -142,6 +144,7 @@ showPlanets() {
     this.setState({
       display: 'planets'
     })
+    console.log(this.state.planetsArray);
   }
 }
 
@@ -161,6 +164,7 @@ showVehicles() {
     this.setState({
       display: 'vehicles'
     })
+    console.log(this.state.vehicleArray);
   }
 }
 

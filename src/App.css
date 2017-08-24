@@ -23,7 +23,7 @@ body {
 }
 
 .load-text{
-
+  position: relative;
 }
 
 @keyframes fade-in {
