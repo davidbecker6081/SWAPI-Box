@@ -1,9 +1,9 @@
 .star-wars {
-  color: #feda4a;
+  color: rgb(216, 180, 39);
   display: flex;
   flex-direction: column;
   font-family: 'Pathway Gothic One', sans-serif;
-  font-size: 500%;
+  font-size: 600%;
   font-weight: 600;
   height: 800px;
   justify-content: center;
@@ -16,28 +16,32 @@
 .crawl {
   animation: crawl 60s linear;
   position: relative;
-  top: -100px;
+  top: 700px;
   transform-origin: 50% 100%;
-
 }
 
 .fade {
   background-image: linear-gradient(0deg, transparent, black 75%);
-  min-height: 60vh;
+  min-height: 90vh;
   position: relative;
   overflow: hidden;
-  top: -25px;
+  top: 705px;
   width: 100%;
   z-index: -100;
 }
 
 @keyframes crawl {
   0% {
-    top: 500;
+    top: 700;
     transform: rotateX(20deg) translateZ(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
   }
   100% {
     top: -6000px;
     transform: rotateX(25deg) translateZ(-2500px);
+
   }
 }

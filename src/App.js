@@ -27,14 +27,17 @@ class App extends Component {
 grabStarWarsData() {
   this.dataCleaner.apiCall()
   .then(() => {
-    this.setState({
-      data: this.dataCleaner,
-      scrollData: this.dataCleaner.scrollData.results[0]
+        this.setState({
+          data: this.dataCleaner,
+          scrollData: this.dataCleaner.scrollData.results[0]
+        })
+      }
+    )
+    .catch(() => {
+      this.setState({
+        display: 'error'
+      })
     })
-  })
-  .catch((e) => {
-    console.log('API ERROR: ', e)
-  })
 }
 
 componentDidMount() {
@@ -201,7 +204,12 @@ showVehicles() {
               <source src={ LoadingText } type="video/mp4"></source>
             </video>
 
-          </div>}
+        {this.state.display === 'error' &&
+          <div><p className="error-msg">ERROR!!!!!</p></div>
+        }
+
+          </div>
+        }
       </div>
     );
   }

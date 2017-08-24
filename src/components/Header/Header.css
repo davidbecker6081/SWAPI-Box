@@ -2,21 +2,21 @@ h1 {
   animation-name: fade-in;
   animation-duration: 2s;
   color: black;
-  font-size: 40px;
+  font-size: 75px;
   position: absolute;
-  text-shadow: 1.2px 1.2px  5px yellow, -1.2px -1.2px  5px yellow;
+  text-shadow: 1.2px 1.2px  5px rgb(216, 180, 39), -1.2px -1.2px  5px rgb(216, 180, 39);
   top: 150px;
   z-index: 9999;
 }
 
 .header {
   align-items: center;
-  background-color: yellow;
+  background-color: rgb(216, 180, 39);
   background-image: url('./assets/banner_gold.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  color: yellow;
+  color: rgb(216, 180, 39);
   display: flex;
   flex-direction: column;
   min-width: 100vw;
@@ -74,20 +74,20 @@ h1 {
 .nav-btn {
   animation-name: slife-right;
   animation-duration: 2s;
-  border: 2px solid yellow;
+  border: 2px solid rgb(216, 180, 39);
   background-color: black;
   border-radius: 25px;
-  box-shadow: 1px 1px 5px yellow, -1px -1px 5px yellow;
-  height: 45px;
+  box-shadow: 1px 1px 5px rgb(216, 180, 39), -1px -1px 5px rgb(216, 180, 39);
+  height: 55px;
   transition-duration: 2s;
-  width: 150px;
+  width: 200px;
   outline-style: none;
 }
 
 .nav-btn:hover {
   cursor: pointer;
   border: 2px solid black;
-  background-color: yellow;
+  background-color: rgb(216, 180, 39);
   box-shadow: 2.5px 2.5px 5px lightgray;
   transform: scale(1.1);
   transition-duration: 2s;
@@ -176,7 +176,7 @@ h1 {
 
 .favorite-btn:hover {
   background-image: url('./assets/star.svg');
-  color: yellow;
+  color: rgb(216, 180, 39);
 }
 
 @media (max-width: 1025px) {
