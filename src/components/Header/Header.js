@@ -1,6 +1,7 @@
 import React from 'react';
-import './Header.css'
-import Button from '../Button/Button'
+import './Header.css';
+import Button from '../Button/Button';
+import PropTypes from 'prop-types';
 
 const Header = ({ showPeople, showPlanets, showVehicles, showFavorites, favLength }) => {
 
@@ -21,6 +22,14 @@ const Header = ({ showPeople, showPlanets, showVehicles, showFavorites, favLengt
       </div>
     </div>
   )
+}
+
+Header.propTypes = {
+  showPeople: PropTypes.func.isRequired,
+  showPlanets: PropTypes.func.isRequired,
+  showVehicles: PropTypes.func.isRequired,
+  showFavorites: PropTypes.func.isRequired,
+  favLength: PropTypes.number.isRequired
 }
 
 export default Header;

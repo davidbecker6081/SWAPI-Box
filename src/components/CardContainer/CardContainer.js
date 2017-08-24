@@ -1,6 +1,7 @@
 import React from 'react';
 import './CardContainer.css';
-import Card from '../Card/Card'
+import Card from '../Card/Card';
+import PropTypes from 'prop-types';
 
 const CardContainer = ({ info, addRemoveFavs }) => {
 
@@ -13,6 +14,11 @@ const CardContainer = ({ info, addRemoveFavs }) => {
         { items }
       </div>
     )
+}
+
+CardContainer.propTypes = {
+  info: PropTypes.array.isRequired,
+  addRemoveFavs: PropTypes.func.isRequired
 }
 
 export default CardContainer;
