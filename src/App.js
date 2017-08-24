@@ -29,7 +29,7 @@ grabStarWarsData() {
   .then(() => {
     this.setState({
       data: this.dataCleaner,
-      scrollData: this.dataCleaner.scrollData.results
+      scrollData: this.dataCleaner.scrollData.results[0]
     })
   })
   .catch((e) => {

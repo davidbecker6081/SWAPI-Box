@@ -8,6 +8,9 @@
 }
 
 .default-card {
+  animation-name: slide-left;
+  animation-duration: 2s;
+  animation-delay: 2s;
   color: yellow;
   display: flex;
   flex-direction: column;
@@ -16,7 +19,19 @@
   min-width: 200px;
   max-width: 200px;
   padding: 10px 5px;
+  position: relative;
   text-align: center;
+}
+
+@keyframes slide-left {
+  0% {
+    right: -500px;
+    z-index: -100;
+  }
+  100% {
+    right: 0px;
+    z-index: -100;
+  }
 }
 
 .fav-btn {
