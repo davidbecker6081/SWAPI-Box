@@ -4,6 +4,8 @@ import Button from '../Button/Button'
 import PeopleImage from '../Header/assets/people-background2.jpg'
 import PlanetImage from '../Header/assets/planet-background2.jpeg'
 import VehicleImage from '../Header/assets/vehicle-background2.jpg'
+import Button from '../Button/Button';
+import PropTypes from 'prop-types';
 
 const Card = ({ item, addRemoveFavs}) => {
 
@@ -74,6 +76,11 @@ let peopleImage = ''
       <Button cardObj={item} clickEvent={addRemoveFavs} btnText={buttonText} />
     </div>
   )
+}
+
+Card.propTypes = {
+  item: PropTypes.object.isRequired,
+  addRemoveFavs: PropTypes.func.isRequired
 }
 
 export default Card;

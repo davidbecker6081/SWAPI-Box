@@ -1,9 +1,16 @@
 import React from 'react';
 import './Scroll.css';
+import PropTypes from 'prop-types';
 
 const Scroll = ({ scrollArray }) => {
 
-  const creeper = scrollArray.map((scrollObj, i) => <div className="title" key={i}><p className="crawl">{scrollObj.opening_crawl}</p></div>)
+  // const creeper = scrollArray.map((scrollObj, i) => <div className="title" key={i}><p className="crawl">{scrollObj.opening_crawl}</p></div>);
+
+  // console.log('ep 4', scrollArray[0].opening_crawl)
+
+  const creeper = <div className="title" key={0}>
+  <p className="crawl">{scrollArray.opening_crawl}</p></div>
+
 
   return (
     <div className='fade'>
@@ -14,4 +21,8 @@ const Scroll = ({ scrollArray }) => {
   )
 }
 
-export default Scroll
+Scroll.propTypes = {
+  scrollArray: PropTypes.object.isRequired
+}
+
+export default Scroll;

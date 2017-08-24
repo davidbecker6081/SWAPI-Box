@@ -66,17 +66,18 @@ describe('App', () => {
 
     const wrapper = mount(<App />)
 
-    await resolveAfter2Seconds()
+    await wrapper.update()
 
     expect(fetchMock.called()).toEqual(true)
     expect(fetchMock.called('https://swapi.co/api/people/'))
     expect(fetchMock.called('https://swapi.co/api/planet/'))
     expect(fetchMock.called('https://swapi.co/api/vehicles/'))
     expect(fetchMock.called('https://swapi.co/api/films/'))
-
+    expect(fetchMock._matchedCalls.length).toEqual(4)
   });
 
-  it.only('should fetch the people data when the people button is pushed', () => {
+
+  it.skip('should fetch the people data when the people button is pushed', async () => {
     const div = document.createElement('div');
     const mockFn = jest.fn();
 
@@ -112,6 +113,18 @@ describe('App', () => {
       })
     })
 
+    fetchMock.get('https://swapi.co/api/people/1/homeworld', {status: 200, body: mockPerson1})
+    fetchMock.get('https://swapi.co/api/people/2/homeworld', {status: 200, body: mockPerson2})
+    fetchMock.get('https://swapi.co/api/people/3/homeworld', {status: 200, body: mockPerson3})
+    fetchMock.get('https://swapi.co/api/people/4/homeworld', {status: 200, body: mockPerson4})
+    fetchMock.get('https://swapi.co/api/people/5/homeworld', {status: 200, body: mockPerson5})
+    fetchMock.get('https://swapi.co/api/people/6/homeworld', {status: 200, body: mockPerson6})
+    fetchMock.get('https://swapi.co/api/people/7/homeworld', {status: 200, body: mockPerson7})
+    fetchMock.get('https://swapi.co/api/people/8/homeworld', {status: 200, body: mockPerson8})
+    fetchMock.get('https://swapi.co/api/people/9/homeworld', {status: 200, body: mockPerson9})
+    fetchMock.get('https://swapi.co/api/people/10/homeworld', {status: 200, body: mockPerson10})
+
+    await wrapper.update()
 
     // setTimeout(() => {
     //   wrapper.instance().showPeople()
@@ -151,15 +164,15 @@ describe('App', () => {
     fetchMock.get('https://swapi.co/api/planet/9/', {status: 200, body: mockPlanet9})
     fetchMock.get('https://swapi.co/api/planet/10/', {status: 200, body: mockPlanet10})
 
-    await resolveAfter2Seconds()
+    await wrapper.update()
 
-    setTimeout(() => {
+    // setTimeout(() => {
       wrapper.instance().showPlanets()
-    }, 2000)
+    // }, 2000)
 
-    setTimeout(() => {
+    // setTimeout(() => {
       expect(wrapper.state().planetsArray.length).toEqual(10)
-    }, 5000)
+    // }, 5000)
 
   });
 

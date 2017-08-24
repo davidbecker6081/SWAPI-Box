@@ -7,6 +7,8 @@
   margin-top: 20px;
   max-width: 90vw;
   padding: 20px 50px;
+  position: relative;
+  top: 250px;
   transition-duration: 3s;
 }
 
